@@ -23,6 +23,14 @@ body{
 
 .num-display{
     margin-right: 8px ;
+    width: 300px;
+    height: 52px;
+    bottom: 52px;
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .num-out{
@@ -39,6 +47,7 @@ body{
     border-color: rgba(42,55,97,0.7);
     border-width: 10px;
     border-radius: 5%;
+    
 }
 
 .clear-back{

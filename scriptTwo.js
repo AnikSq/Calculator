@@ -18,6 +18,7 @@ let dot = document.querySelector('.dot')
 let assignment = document.querySelector('.assignment')
 let clear = document.querySelector('.clear')
 let back = document.querySelector('.back')
+const edit = document.querySelector('.num-display')
 
 
 // function for only the numbers 
@@ -27,10 +28,19 @@ let numTotal = []
 let allOperators = []
 let val = [false]
 let checker = []
-
+let all = '' // stores all the values in a string for reference 
+let assignval = [false]
 
 function numbers(main , val){
+
     main.addEventListener('click' , let=>{
+        if (assignval.at(-1) == true){
+            all = ''
+            edit.innerHTML = all;
+            assignval.push(false);
+        }
+        all += main.textContent
+        edit.innerHTML = all;
         checker.push(main.textContent); // pushes everything for reference
         if (val.at(-1) === false){
             numOne.push(main.textContent);
@@ -62,6 +72,8 @@ function clearFunc(main){
     allOperators = []
     checker = []
     val.push(false)
+    all = ''
+    edit.innerHTML = all;
     })
 }
 
@@ -76,6 +88,13 @@ function join(main){
 
 function operatorPlus(main , val){
     main.addEventListener('click',let=>{ // works when + is clicked
+        if (assignval.at(-1) == true){
+            all = ''
+            edit.innerHTML = all;
+            assignval.push(false);
+        }
+       all += main.textContent
+       edit.innerHTML = all;
        if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
         return;
        }else{
@@ -95,6 +114,13 @@ function operatorPlus(main , val){
 
 function operatorMinus(main , val){
     main.addEventListener('click',let=>{ // works when + is clicked
+        if (assignval.at(-1) == true){
+            all = ''
+            edit.innerHTML = all;
+            assignval.push(false);
+        }
+        all += main.textContent
+        edit.innerHTML = all;
         if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
          return;
         }else{
@@ -114,6 +140,13 @@ function operatorMinus(main , val){
 
 function operatorMulti(main , val){
     main.addEventListener('click',let=>{ // works when + is clicked
+        if (assignval.at(-1) == true){
+            all = ''
+            edit.innerHTML = all;
+            assignval.push(false);
+        }
+        all += main.textContent
+        edit.innerHTML = all;
         if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
          return;
         }else{
@@ -132,6 +165,13 @@ function operatorMulti(main , val){
 
 function operatorDivision(main,val){
     main.addEventListener('click',let=>{ // works when + is clicked
+        if (assignval.at(-1) == true){
+            all = ''
+            edit.innerHTML = all;
+            assignval.push(false);
+        }
+        all += main.textContent
+        edit.innerHTML = all;
         if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
         return;
         }else{
@@ -146,6 +186,43 @@ function operatorDivision(main,val){
            numOne.push(temp) // pushes the newly made number to numOne
         }
      })
+}
+
+
+function assignEqual(main){
+    main.addEventListener('click',let=>{
+        assignval.push(true);
+        if (checker.at(-1) == 'x' || checker.at(-1) == '÷' || checker.at(-1) == '+' || checker.at(-1) == '-'){
+            all=numOne.at(0)
+            edit.innerHTML = all;
+            numTwo = []
+        } else{
+            if (allOperators.at(-1) == 'x'){
+               all = parseInt(join(numOne)) * parseInt(join(numTwo)) // assigning operator
+               numOne = [all]
+               edit.innerHTML = all;
+               numTwo = []
+            }
+            else if (allOperators.at(-1) == '+'){
+                all = parseInt(join(numOne)) + parseInt(join(numTwo))
+                numOne = [all]
+                edit.innerHTML = all;
+                numTwo = []
+            }
+            else if (allOperators.at(-1) == '-'){
+                all = parseInt(join(numOne)) - parseInt(join(numTwo))
+                numOne = [all]
+                edit.innerHTML = all;
+                numTwo = []
+            }
+            else if (allOperators.at(-1) == '÷'){
+                all = parseInt(join(numOne)) / parseInt(join(numTwo))
+                numOne = [all]
+                edit.innerHTML = all;
+                numTwo = []
+            }
+        }
+    })
 }
 
 numbers(seven , val)
@@ -164,3 +241,5 @@ operatorMulti(multi,val)
 operatorDivision(division,val)
 clearFunc(clear);
 backFunc(back);
+assignEqual(assignment);
+
