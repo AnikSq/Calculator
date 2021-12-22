@@ -34,11 +34,6 @@ let assignval = [false]
 function numbers(main , val){
 
     main.addEventListener('click' , let=>{
-        if (assignval.at(-1) == true){
-            all = ''
-            edit.innerHTML = all;
-            assignval.push(false);
-        }
         all += main.textContent
         edit.innerHTML = all;
         checker.push(main.textContent); // pushes everything for reference
@@ -52,13 +47,16 @@ function numbers(main , val){
 
 function backFunc(main){
     main.addEventListener('click',le=>{
-        if (numOne.length > 1){
-            let lastArr = numOne.at(-1)
-            splice(lastArr,1)
-        }else{
-            let lastArr = numTwo.at(-1)
-            splice(lastArr,1)
-        }
+        main.addEventListener('click',let=>{ // clearing all the registered values expect for val
+            numOne = []
+            numTwo = []
+            numTotal = []
+            allOperators = []
+            checker = []
+            val.push(false)
+            all = ''
+            edit.innerHTML = all;
+            })
     })
 }
 
@@ -86,13 +84,16 @@ function join(main){
 }
        
 
+
+function inting(main){
+    if (main == []){
+        return 0;
+    }else{
+        parseInt(join(main));
+    }
+}
 function operatorPlus(main , val){
     main.addEventListener('click',let=>{ // works when + is clicked
-        if (assignval.at(-1) == true){
-            all = ''
-            edit.innerHTML = all;
-            assignval.push(false);
-        }
        all += main.textContent
        edit.innerHTML = all;
        if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
@@ -103,7 +104,12 @@ function operatorPlus(main , val){
        }
        checker.push(main.textContent); // pushes everything for reference
        if (allOperators.length > 1){ // if there are more than one operator in the allOperators variable then execute this statement
-          let temp = parseInt(join(numOne)) + parseInt(join(numTwo)); // a temp number to store the sum
+        let one =(parseInt(join(numOne)))
+        let two = (parseInt(join(numTwo)))
+        if (isNaN(one)==true || isNaN(two)==true){
+            return 0;
+        }
+          let temp =  one+two; // a temp number to store the sum
           numOne = [] // since the work of this array is done it is set to empty
           numTwo = [] // same set as empty
           numOne.push(temp) // pushes the newly made number to numOne
@@ -114,11 +120,6 @@ function operatorPlus(main , val){
 
 function operatorMinus(main , val){
     main.addEventListener('click',let=>{ // works when + is clicked
-        if (assignval.at(-1) == true){
-            all = ''
-            edit.innerHTML = all;
-            assignval.push(false);
-        }
         all += main.textContent
         edit.innerHTML = all;
         if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
@@ -129,8 +130,12 @@ function operatorMinus(main , val){
         }
         checker.push(main.textContent); // pushes everything for reference
         if (allOperators.length > 1){ // if there are more than one operator in the allOperators variable then execute this statement
-           let temp = parseInt(join(numOne)) - parseInt(join(numTwo)); // a temp number to store the sum
-           numOne = [] // since the work of this array is done it is set to empty
+                let one =(parseInt(join(numOne)))
+                let two = (parseInt(join(numTwo)))
+                if (isNaN(one)==true || isNaN(two)==true){
+                    return 0;
+                }
+                let temp =  one-two; // a temp number to store the sum           numOne = [] // since the work of this array is done it is set to empty
            numTwo = [] // same set as empty
            numOne.push(temp) // pushes the newly made number to numOne
         }
@@ -140,11 +145,6 @@ function operatorMinus(main , val){
 
 function operatorMulti(main , val){
     main.addEventListener('click',let=>{ // works when + is clicked
-        if (assignval.at(-1) == true){
-            all = ''
-            edit.innerHTML = all;
-            assignval.push(false);
-        }
         all += main.textContent
         edit.innerHTML = all;
         if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
@@ -155,7 +155,12 @@ function operatorMulti(main , val){
         }
         checker.push(main.textContent); // pushes everything for reference
         if (allOperators.length > 1){ // if there are more than one operator in the allOperators variable then execute this statement
-           let temp = (parseInt(join(numOne)) * parseInt(join(numTwo))); // a temp number to store the sum
+            let one =(parseInt(join(numOne)))
+            let two = (parseInt(join(numTwo)))
+            if (isNaN(one)==true || isNaN(two)==true){
+                return 1;
+            }
+              let temp =  one*two; // a temp number to store the sum
            numOne = [] // since the work of this array is done it is set to empty
            numTwo = [] // same set as empty
            numOne.push(temp) // pushes the newly made number to numOne
@@ -165,11 +170,6 @@ function operatorMulti(main , val){
 
 function operatorDivision(main,val){
     main.addEventListener('click',let=>{ // works when + is clicked
-        if (assignval.at(-1) == true){
-            all = ''
-            edit.innerHTML = all;
-            assignval.push(false);
-        }
         all += main.textContent
         edit.innerHTML = all;
         if (checker.at(-1) == main.textContent || checker.length == 0){ // makes sure 2 plus aren't being used 
@@ -180,7 +180,12 @@ function operatorDivision(main,val){
         }
         checker.push(main.textContent); // pushes everything for reference
         if (allOperators.length > 1){ // if there are more than one operator in the allOperators variable then execute this statement
-           let temp = parseInt(join(numOne)) / parseInt(join(numTwo)); // a temp number to store the sum
+            let one =(parseInt(join(numOne)))
+            let two = (parseInt(join(numTwo)))
+            if (isNaN(one)==true || isNaN(two)==true){
+                return 1;
+            }
+              let temp =  (one+two); // a temp number to store the sum
            numOne = [] // since the work of this array is done it is set to empty
            numTwo = [] // same set as empty
            numOne.push(temp) // pushes the newly made number to numOne
@@ -194,31 +199,47 @@ function assignEqual(main){
         assignval.push(true);
         if (checker.at(-1) == 'x' || checker.at(-1) == '÷' || checker.at(-1) == '+' || checker.at(-1) == '-'){
             all=numOne.at(0)
-            edit.innerHTML = all;
+            edit.innerHTML = all.toFixed(2);
             numTwo = []
         } else{
             if (allOperators.at(-1) == 'x'){
-               all = parseInt(join(numOne)) * parseInt(join(numTwo)) // assigning operator
-               numOne = [all]
-               edit.innerHTML = all;
+               all = (parseInt(join(numOne))/1.0) * (parseInt(join(numTwo))/1.0) // assigning operator
+               numOne = [all.toFixed(2)]
+               if (parseInt(all) === all){
+                   edit.innerHTML = all
+               }else{
+                edit.innerHTML = all.toFixed(2);
+               }
                numTwo = []
             }
             else if (allOperators.at(-1) == '+'){
-                all = parseInt(join(numOne)) + parseInt(join(numTwo))
-                numOne = [all]
-                edit.innerHTML = all;
+                all = (parseInt(join(numOne))/1.0) + (parseInt(join(numTwo))/1.0)
+                numOne = [all.toFixed(2)]
+                if (parseInt(all) === all){
+                    edit.innerHTML = all
+                }else{
+                 edit.innerHTML = all.toFixed(2);
+                }
                 numTwo = []
             }
             else if (allOperators.at(-1) == '-'){
-                all = parseInt(join(numOne)) - parseInt(join(numTwo))
-                numOne = [all]
-                edit.innerHTML = all;
+                all = (parseInt(join(numOne))/1.0) - (parseInt(join(numTwo))/1.0)
+                numOne = [all.toFixed(2)]
+                if (parseInt(all) === all){
+                    edit.innerHTML = all
+                }else{
+                 edit.innerHTML = all.toFixed(2);
+                }
                 numTwo = []
             }
             else if (allOperators.at(-1) == '÷'){
-                all = parseInt(join(numOne)) / parseInt(join(numTwo))
-                numOne = [all]
-                edit.innerHTML = all;
+                all = (parseInt(join(numOne))/1.0) / (parseInt(join(numTwo))/1.0)
+                numOne = [all.toFixed(2)]
+                if (parseInt(all) === all){
+                    edit.innerHTML = all
+                }else{
+                 edit.innerHTML = all.toFixed(2);
+                }
                 numTwo = []
             }
         }
