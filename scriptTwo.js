@@ -30,7 +30,11 @@ let val = [false]
 let checker = []
 let all = '' // stores all the values in a string for reference 
 let assignval = [false]
-
+function dotOperator(main){
+    main.addEventListener('click',let=>{
+        alert("WIP, May complete it ")
+    })
+}
 function numbers(main , val){
 
     main.addEventListener('click' , let=>{
@@ -47,7 +51,7 @@ function numbers(main , val){
 
 function backFunc(main){
     main.addEventListener('click',le=>{
-        main.addEventListener('click',let=>{ // clearing all the registered values expect for val
+        alert("This is WIP, May Complete it later for now, for now it works as clear")
             numOne = []
             numTwo = []
             numTotal = []
@@ -57,7 +61,6 @@ function backFunc(main){
             all = ''
             edit.innerHTML = all;
             })
-    })
 }
 
 
@@ -185,7 +188,7 @@ function operatorDivision(main,val){
             if (isNaN(one)==true || isNaN(two)==true){
                 return 1;
             }
-              let temp =  (one+two); // a temp number to store the sum
+              let temp =  (one/two); // a temp number to store the sum
            numOne = [] // since the work of this array is done it is set to empty
            numTwo = [] // same set as empty
            numOne.push(temp) // pushes the newly made number to numOne
@@ -233,14 +236,22 @@ function assignEqual(main){
                 numTwo = []
             }
             else if (allOperators.at(-1) == '÷'){
-                all = (parseInt(join(numOne))/1.0) / (parseInt(join(numTwo))/1.0)
-                numOne = [all.toFixed(2)]
-                if (parseInt(all) === all){
-                    edit.innerHTML = all
+                if (join(numTwo) == 0){
+                    alert("Threats Detected")
+                    alert("Preparing Countermeasures")
+                    alert("Deploying Countermeasures")
+                    alert("Threat avoided")
                 }else{
-                 edit.innerHTML = all.toFixed(2);
+                    all = (parseInt(join(numOne))/1.0) / (parseInt(join(numTwo))/1.0)
+                    numOne = [all.toFixed(2)]
+                    if (parseInt(all) === all){
+                        edit.innerHTML = all
+                    }else{
+                    edit.innerHTML = all.toFixed(2);
+                    }
+                    numTwo = []
                 }
-                numTwo = []
+                
             }
         }
     })
@@ -263,4 +274,5 @@ operatorDivision(division,val)
 clearFunc(clear);
 backFunc(back);
 assignEqual(assignment);
+dotOperator(dot)
 
